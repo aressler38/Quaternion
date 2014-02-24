@@ -161,6 +161,28 @@ define(function(require, exports, module) {
         ]);
 
     };
+
+    Quaternion.prototype.rotateWXYZ = function(theta, axis) {
+        var w,x,y,z;
+        with (Math) {
+            total.w = cos(theta/2);
+            total.x = axis.x * sin(theta/2);
+            total.y = axis.y * sin(theta/2);
+            total.z = axis.z * sin(theta/2);
+        }
+        total.set.apply(total, total.get())
+             .normalize();
+        w = total.w;
+        x = total.x;
+        y = total.y;
+        z = total.z;
+        return [
+            (1 - 2*y*y - 2*z*z), (2*x*y - 2*z*w)    , (2*x*z + 2*y*w)    , 0,
+            (2*x*y + 2*z*w)    , (1 - 2*x*x - 2*z*z), (2*y*z - 2*x*w)    , 0,
+            (2*x*z - 2*y*w)    , (2*y*z + 2*x*w)    , (1 - 2*x*x - 2*y*y), 0,
+            0                  , 0                  , 0                  , 1
+        ];
+    };
         
     //Quaternion.prototype.conjugate
 
