@@ -99,9 +99,9 @@ define(function(require, exports, module) {
         y = total.y;
         z = total.z;
         return [
-            (1 - 2*y*y - 2*z*z), (2*x*y - 2*z*w)    , (2*x*z + 2*y*w)    , 0,
-            (2*x*y + 2*z*w)    , (1 - 2*x*x - 2*z*z), (2*y*z - 2*x*w)    , 0,
-            (2*x*z - 2*y*w)    , (2*y*z + 2*x*w)    , (1 - 2*x*x - 2*y*y), 0,
+            (1 - ((y*y)<<1) - ((z*z)<<1)), (((x*y)<<1) - ((z*w)<<1))    , (((x*z)<<1) + ((y*w)<<1))    , 0,
+            (((x*y)<<1) + ((z*w)<<1))    , (1 - ((x*x)<<1) - ((z*z)<<1)), (((y*z)<<1) - ((x*w)<<1))    , 0,
+            (((x*z)<<1) - ((y*w)<<1))    , (((y*z)<<1) + ((x*w)<<1))    , (1 - ((x*x)<<1) - ((y*y)<<1)), 0,
             0                  , 0                  , 0                  , 1
         ];            
     };
@@ -166,9 +166,9 @@ define(function(require, exports, module) {
         var w,x,y,z;
         with (Math) {
             total.w = cos(theta/2);
-            total.x = axis.x * sin(theta/2);
-            total.y = axis.y * sin(theta/2);
-            total.z = axis.z * sin(theta/2);
+            total.x = axis.x * sin(theta>>1);
+            total.y = axis.y * sin(theta>>1);
+            total.z = axis.z * sin(theta>>1);
         }
         total.set.apply(total, total.get())
              .normalize();
@@ -177,9 +177,9 @@ define(function(require, exports, module) {
         y = total.y;
         z = total.z;
         return [
-            (1 - 2*y*y - 2*z*z), (2*x*y - 2*z*w)    , (2*x*z + 2*y*w)    , 0,
-            (2*x*y + 2*z*w)    , (1 - 2*x*x - 2*z*z), (2*y*z - 2*x*w)    , 0,
-            (2*x*z - 2*y*w)    , (2*y*z + 2*x*w)    , (1 - 2*x*x - 2*y*y), 0,
+            (1 - ((y*y)<<1) - ((z*z)<<1)), (((x*y)<<1) - ((z*w)<<1))    , (((x*z)<<1) + ((y*w)<<1))    , 0,
+            (((x*y)<<1) + ((z*w)<<1))    , (1 - ((x*x)<<1) - ((z*z)<<1)), (((y*z)<<1) - ((x*w)<<1))    , 0,
+            (((x*z)<<1) - ((y*w)<<1))    , (((y*z)<<1) + ((x*w)<<1))    , (1 - ((x*x)<<1) - ((y*y)<<1)), 0,
             0                  , 0                  , 0                  , 1
         ];
     };
